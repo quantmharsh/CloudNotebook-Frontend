@@ -7,18 +7,26 @@ import AddingNote from './AddingNote';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import {useNavigate} from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 
 
 
 
-function Notes() {
+
+function Notes(props) {
   
   const context=useContext(noteContext)
     const {notes  ,getNote ,editNote} =context;
+    let navigate=useNavigate();
     useEffect(() => {
-      getNote();
+      if(localStorage.getItem('token'))
+      {
+      getNote();}
+      else{
+        navigate("/Login");
+      
+      }
     
     
     }, [])
@@ -31,6 +39,8 @@ function Notes() {
    const updateNote=(currentnote)=>{
     setShow(true);
     setNote({ id: currentnote._id ,etitle:currentnote.title ,edescription:currentnote.description ,etag:currentnote.tag});
+   
+    
 
    }
    const [note, setNote] = useState({ id:"" ,etitle:"" ,edescription:"",etag:"default"})
@@ -38,6 +48,7 @@ function Notes() {
        editNote(note.id ,note.etitle ,note.edescription ,note.etag);
        setShow(false);
        setNote({ etitle:"" ,edescription:"" ,etag:""}); 
+       props.showAlert("Notes Updated Succesfully","success");
        
 
     }
@@ -49,7 +60,7 @@ function Notes() {
   return (
     <>
      
-     <AddingNote/>
+     <AddingNote showAlert={props.showAlert}/>
      {/* //Modal for updating notes */}
      
 
@@ -90,7 +101,7 @@ function Notes() {
       </Modal>
     <div className= "row my-3"> 
          { notes.map((notes)=>{
-        return  <Noteitem notes={notes} key={notes.id} updateNote ={updateNote}/>
+        return  <Noteitem notes={notes} key={notes.id} showAlert={props.showAlert} updateNote ={updateNote}/>
          
       })}
      

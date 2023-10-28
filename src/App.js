@@ -4,6 +4,9 @@ import Navigationbar from './components/Navigationbar';
 import  Home from './components/Home';
 import About from './components/About';
 import Notes  from './components/Notes';
+import { Login } from './components/Login';
+import Signup from './components/Signup';
+
 import {
   BrowserRouter,
   Routes,
@@ -12,8 +15,9 @@ import {
 } from "react-router-dom";
 import NoteState from './context/notes/noteState';
 import Noteitem from './components/Noteitem';
-import { Alert } from 'react-bootstrap';
-import AlertFeature from './components/AlertFeature';
+
+import Alert from './components/Alert';
+import { useState } from 'react';
 
 
 
@@ -21,22 +25,35 @@ import AlertFeature from './components/AlertFeature';
 
 
 function App() {
+  const[alert ,setAlert] =useState(null);
+  const showAlert=(message ,type)=>{
+    setAlert({
+      msg:message,
+      type:type
+    })
+    setTimeout(() => {
+      setAlert(null)
+    }, 1500);
+  }
   return (
     <div className="App">
      
       <NoteState>
-        
+    
           <BrowserRouter>
           <Navigationbar/>
-          <AlertFeature message="Harsh"/>
-          <Notes/>
+          <Alert alert={alert}/>
+          {/* <Notes/> */}
+         
          
         
         
       <Routes>
-        <Route  exact   path="/Home" element={<Home />} />
+        <Route  exact   path="/home" element={<Home showAlert={showAlert} />} />
         
         <Route  exact path="/About" element={<About />} />
+        <Route  exact path="/Login" element={<Login showAlert={showAlert}/>} />
+        <Route  exact path="/Signup" element={<Signup showAlert={showAlert} />} />
       </Routes>
     </BrowserRouter>
          

@@ -2,64 +2,11 @@ import React, { useState }  from "react";
 import NoteContext from "./noteContext";
 import { json } from "react-router-dom";
 const NoteState =(props)=>{
-  const host="http://localhost:3000"
+const host="http://localhost:3000"
    
-   const notesInitial=[
-    {
-      "_id": "65180596a15a23cb2ddeb42f",
-      "user": "650c306b4f52acd567e998ca",
-      "title": "welcome to notes section",
-      "description": "here you can save and view notes  can add also",
-      "tag": "Sports",
-      "date": "2023-09-30T11:25:10.143Z",
-      "__v": 0
-    },
-    {
-      "_id": "651805b8a15a23cb2ddeb432",
-      "user": "650c306b4f52acd567e998ca",
-      "title": "welcome to Title 2",
-      "description": "here you can save and view notes  can add also",
-      "tag": "Sports",
-      "date": "2023-09-30T11:25:44.380Z",
-      "__v": 0
-    }, 
-    {
-        "_id": "65180596a15a23cb2ddeb42f",
-        "user": "650c306b4f52acd567e998ca",
-        "title": "welcome to notes section",
-        "description": "here you can save and view notes  can add also",
-        "tag": "Sports",
-        "date": "2023-09-30T11:25:10.143Z",
-        "__v": 0
-      },
-      {
-        "_id": "651805b8a15a23cb2ddeb432",
-        "user": "650c306b4f52acd567e998ca",
-        "title": "welcome to Title 2",
-        "description": "here you can save and view notes  can add also",
-        "tag": "Sports",
-        "date": "2023-09-30T11:25:44.380Z",
-        "__v": 0
-      }, {
-        "_id": "65180596a15a23cb2ddeb42f",
-        "user": "650c306b4f52acd567e998ca",
-        "title": "welcome to notes section",
-        "description": "here you can save and view notes  can add also",
-        "tag": "Sports",
-        "date": "2023-09-30T11:25:10.143Z",
-        "__v": 0
-      },
-      {
-        "_id": "651805b8a15a23cb2ddeb432",
-        "user": "650c306b4f52acd567e998ca",
-        "title": "welcome to Title 2",
-        "description": "here you can save and view notes  can add also",
-        "tag": "Sports",
-        "date": "2023-09-30T11:25:44.380Z",
-        "__v": 0
-      }
-  ]
-  const [notes, setNotes] = useState(notesInitial)
+   const notesInitial=[]
+  
+ const [notes, setNotes] = useState(notesInitial)
 
   //Getting all Notes
   const getNote=async()=>{
@@ -69,7 +16,7 @@ const NoteState =(props)=>{
      
       headers:{
         'Content-Type':'application/json',
-        'auth-Token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYzMwNmI0ZjUyYWNkNTY3ZTk5OGNhIn0sImlhdCI6MTY5NTI5NzY0NH0.Lx0SbIuEnKNFjoMbp9tde3Vw8hkoM6jMAnn4224qvTI'
+        'auth-Token' :localStorage.getItem('token')
       },
     
       
@@ -85,14 +32,14 @@ const NoteState =(props)=>{
 
    //Add a note: this function will be used to fetch api end point which will add note
 
- const addNote=async (title ,description ,tag)=>{
+  const addNote=async (title ,description ,tag)=>{
   console.log("adding a new note")
   const response= await fetch(`http://localhost:3000/api/notes/addnotes` ,{
     method :'POST',
    
     headers:{
       'Content-Type':'application/json',
-      'auth-Token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYzMwNmI0ZjUyYWNkNTY3ZTk5OGNhIn0sImlhdCI6MTY5NTI5NzY0NH0.Lx0SbIuEnKNFjoMbp9tde3Vw8hkoM6jMAnn4224qvTI'
+      'auth-Token' :localStorage.getItem('token')
     },
   
     body: JSON.stringify({title ,description , tag}) 
@@ -115,7 +62,7 @@ const NoteState =(props)=>{
         
         headers: {
           "Content-Type": "application/json",
-          "auth-Token":   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYzMwNmI0ZjUyYWNkNTY3ZTk5OGNhIn0sImlhdCI6MTY5NTI5NzY0NH0.Lx0SbIuEnKNFjoMbp9tde3Vw8hkoM6jMAnn4224qvTI"
+          "auth-Token":  localStorage.getItem('token')
          
         },
         
@@ -148,7 +95,7 @@ const NoteState =(props)=>{
       method :"DELETE",
         headers:{
           "Content-Type":"application/json",
-          "auth-Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwYzMwNmI0ZjUyYWNkNTY3ZTk5OGNhIn0sImlhdCI6MTY5NTI5NzY0NH0.Lx0SbIuEnKNFjoMbp9tde3Vw8hkoM6jMAnn4224qvTI"
+          "auth-Token":localStorage.getItem('token')
         }
     });
     

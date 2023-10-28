@@ -9,12 +9,12 @@ import Notes from './Notes';
 
 
 
-function Home() {
- 
+function Home(props) {
+  const {showAlert}=props;
   return (
     <div>This is Home
        
-      <Notes/>
+      <Notes  showAlert={showAlert}/>
   
       
     </div>

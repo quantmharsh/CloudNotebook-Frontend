@@ -23,7 +23,7 @@ const Noteitem =(props)=> {
         </Card.Text>
         <div >
           {/* adding functionality  to delete notes */}
-        <i className="fa-solid fa-trash-can" onClick={()=>{deleteNote(notes._id)}} style={{color: '#511f4d', marginRight:'20px'}}></i>
+        <i className="fa-solid fa-trash-can" onClick={()=>{deleteNote(notes._id);props.showAlert("Notes Deleted Succesfully","success");}} style={{color: '#511f4d', marginRight:'20px'}}></i>
         <i className="fa-solid fa-marker" onClick={()=>{updateNote(notes)}} style={{color: '#1f3d2c'}}></i>
 
 

@@ -5,7 +5,7 @@ import noteContext  from '../context/notes/noteContext';
 import Form from 'react-bootstrap/Form';
 
 
-function AddingNote() {
+function AddingNote(props) {
     const context=useContext(noteContext)
     const {addNote}=context;
        
@@ -14,6 +14,7 @@ function AddingNote() {
         e.preventDefault();
         addNote(note.title ,note.description ,note.tag);
         setNote({title:"",description:"",tag:""});
+        props.showAlert("Notes Added Succesfully","success");
 
     }
     const onChange=(e)=>{
